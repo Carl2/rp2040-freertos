@@ -1,0 +1,49 @@
+* FreeRtos for Rp2040
+
+
+First all it seems to be working fairly well
+
+
+
+* Commands
+
+
+** building
+#+begin_src bash
+  mkdir build && cd build
+  cmake ..
+  make -j8
+  # This will complain about ucHeap For some reason it tries to use
+  # head_4 Running "cmake .." again will provide the right cmake Args to
+  # build process of freertos.
+  cmake ..
+  make -j8
+  # this should work.
+
+
+** Using openocd with cmisis-dap (picoprobe)
+
+This will upload the elf to /rp2040/
+#+begin_src bash
+  make ocd_flash
+#+end_src
+
+** Debug
+There are two different ways of debugging (using /openocd/).
+The first will open a tmux and provide both openocd and gdb output.
+
+Console:
+#+begin_src bash
+  make debug
+#+end_src
+
+gdbgui:
+#+begin_src bash
+  make gui_debug
+#+end_src
+
+
+
+
+
+#+end_src
