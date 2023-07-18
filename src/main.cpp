@@ -19,22 +19,10 @@ auto my_task_fn = []([[maybe_unused]] auto* pvArgs) {
 
 }  // namespace
 
-void vTaskCode(void* pvParameters)
-{
-    /* The parameter value is expected to be 1 as 1 is passed in the
-    pvParameters value in the call to xTaskCreate() below.
-    configASSERT( ( ( uint32_t ) pvParameters ) == 1 );*/
-
-    for (;;)
-    {
-        /* Task code goes here. */
-    }
-}
-
-int main(int argc, char* argv[])
+int main()
 {
 
-    auto isOk = xTaskCreate(vTaskCode, "MyTask", 128, nullptr, 1, &my_task_handle);
+    auto isOk = xTaskCreate(my_task_fn, "MyTask", 128, nullptr, 1, &my_task_handle);
     vTaskStartScheduler();
     while (true)
     {};
