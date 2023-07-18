@@ -19,7 +19,7 @@ First all it seems to be working fairly well
   cmake ..
   make -j8
   # this should work.
-
+#+end_src
 
 ** Using openocd with cmisis-dap (picoprobe)
 
