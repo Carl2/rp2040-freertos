@@ -51,8 +51,8 @@ PRIVATE
 #project_options
 #project_warnings
 pico_stdlib
-#freertos_kernel
-#freertos_kernel_port
+freertos_kernel
+freertos_kernel_port
 )
 
 make_openocd_target(
