@@ -40,9 +40,15 @@ function without_elf {
         echo "${OPENOCD_BIN} \
 -s ${OPENOCD_TCL} \
 -f ${OPENOCD_TCL}/interface/${INTERFACE}.cfg \
--f ${OPENOCD_TCL}/target/${TARGET}.cfg"
-        out=$(${OPENOCD_BIN} -s ${OPENOCD_TCL} -f ${OPENOCD_TCL}/interface/${INTERFACE}.cfg -f ${OPENOCD_TCL}/target/${TARGET}.cfg)
-    )
+-f ${OPENOCD_TCL}/target/${TARGET}.cfg \
+-c \"adapter speed 5000\" "
+        ${OPENOCD_BIN} \
+            -s ${OPENOCD_TCL} \
+            -f ${OPENOCD_TCL}/interface/${INTERFACE}.cfg \
+            -f ${OPENOCD_TCL}/target/${TARGET}.cfg \
+            -c "adapter speed 5000"
+        )
+
 }
 
 function exec_openocd {
