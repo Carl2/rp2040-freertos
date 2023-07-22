@@ -51,6 +51,7 @@ PRIVATE
 #project_options
 #project_warnings
 pico_stdlib
+hardware_adc
 freertos_kernel
 freertos_kernel_port
 )
