@@ -15,7 +15,11 @@ freertos_support(
 ###########
 # Sources that compiles
 ###########
-set( SRC main.cpp)
+#set( SRC main.cpp)
+set( SRC
+  "include/co_uart/uart_main.cpp"
+  "include/co_uart/parser_task.cpp"
+)
 
 
 
@@ -30,6 +34,7 @@ target_include_directories(${TARGET_NAME}
    ${CMAKE_SOURCE_DIR}/external/FreeRtos/include
    ${CMAKE_SOURCE_DIR}/external/FreeRtos/portable/GCC/ARM_CM0
    ${CMAKE_SOURCE_DIR}/config
+   ${CMAKE_CURRENT_SOURCE_DIR}/include
 
  )
 
@@ -53,6 +58,7 @@ PRIVATE
 pico_stdlib
 freertos_kernel
 freertos_kernel_port
+hardware_pwm
 )
 
 make_openocd_target(

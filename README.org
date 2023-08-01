@@ -45,5 +45,75 @@ gdbgui:
 
 
 
+* Servo project
+
+This is the servo project.
+
+** Overview
+The idea is to have /two/ servos(X,Y) connected to its possible to move them, by using uart.
+It will use /FreeRtos/ as task manager, and here is a rough sketch of how the system will look.
+
+
+#+begin_src artist
+
+     Cmd IF
+  --------------+                      +---------------+
+                |                      |    Output     |
+           +----v-------+              | Controller    |          +------------+
+           |            |              |               |          |            |
+           |  UART      +-------+      +---------------+          |   Servo X  |
+           |            |       |              ^                  |            |
+           +------------+       |              |                  +------------+
+                                |              |                     ^
+                                |       +------+-------+             |
+                                |       |   Servo      +-------------+
+                                +-------> Controller   |
+                                        |              +-------------+
+                                        +--------------+             |
+                                                                     v
+                                                                  +-------------+
+                                                                  |             |
+                                                                  |  Servo Y    |
+                                                                  |             |
+                                                                  +-------------+
 
 #+end_src
+
+** Uart task
+
+The uart task has one mission, and that is to read the uart, and translate the command
+into movement for the servo controller to use. For that it gets a /task/ for parsing.
+It also will use /interrupt/ for each characters read from the uart.
+
+#+begin_src plantuml :file uart_task.png
+
+  actor UartIf
+
+  participant "uart interrupt\n service" as UartISR
+  participant "uart Parser\ntask" as uartTask
+  participant "Uart Response\ntask" as responseTask
+  participant "Servo controller\ntask" as servoC
+  loop until message done
+          UartIf -> UartISR : command send
+          note left of UartISR
+                  when a complete message is recieved
+                  it will notify the uartTask
+          end note
+
+  end
+  UartISR -->  uartTask : parseMessage(message)
+
+  alt successful parse
+          uartTask --> servoC : rotate(servoId,degrees)
+          servoC -> servoC : make_movement(servoId,degrees)
+  else bad message
+          uartTask -> responseTask : msg_failure(msg)
+  end
+  #+end_src
+
+  #+RESULTS:
+  [[file:uart_task.png]]
+
+** Uart
+
+At this time I will be using a IRQ for when the

@@ -40,7 +40,7 @@
 #define configMAX_PRIORITIES 5        // Max number of priority values (0-24)
 #define configMINIMAL_STACK_SIZE 128
 #define configMAX_TASK_NAME_LEN 16
-#define configUSE_16_BIT_TICKS 0
+#define configUSE_16_BIT_TICKS 0  // 24 bits
 #define configIDLE_SHOULD_YIELD 1
 #define configUSE_TASK_NOTIFICATIONS 1
 #define configTASK_NOTIFICATION_ARRAY_ENTRIES 3
